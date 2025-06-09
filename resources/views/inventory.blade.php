@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
   <link href="{{asset('css/sidebar-style.css')}}" rel="stylesheet">
 </head>
     <body>
@@ -21,8 +20,9 @@
       <h2 class="page-title">Inventory</h2>
       <div class="inventory d-flex justify-content-center align-content-center mb-auto">
         <p class="mt-3">Admin</p>
-        <img class="mx-5" src="/images/icons/person.svg" alt="">
-      </div> </div>
+        <img class="mx-5" src="{{asset('/images/icons/person.svg')}}" alt="">
+      </div>
+    </div>
   </nav>
 
 <div id="layoutSidenav">
@@ -66,9 +66,10 @@
         </div>
         <!-- SIGN OUT -->
         <div class="sb-sidenav-footer">
-          <form action="/employee/logout" method="POST"
+          <form action="{{ route('logout') }}" method="POST"
             class="d-flex flex-column align-items-center justify-content-center link-dark text-decoration-none"
             style="cursor: pointer; border: none; background: none; padding: 0;">
+            @csrf
             <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer;">
               <i class="bi bi-escape"></i>
               <p class="d-block p-exit">Sign Out</p>
@@ -81,38 +82,9 @@
 
     <div id="layoutSidenav_content">
       <main>
-        <div class="container-fluid mt-5 px-5 ">
-          <div class="container-fluid px-0 mt-4 main-table">
-            <div class="card px-4 py-3">
-              <table id="datatablesSimple" class="table table-hover" >
-                <thead>
-                  <tr>
-                    <th>Order ID</th>
-                    <th>Customer Name</th>
-                    <th>Date Completed</th>
-                    <th>Phone Number</th>
-                    <th>Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>fad</td>
-                    <td>fasfdas</td>
-                    <td>fdasfsa</td>
-                    <td>fdasfsa</td>
-                    <td>fdafasf</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <!-- END OF TABLE -->
-        </div>
       </main>
     </div>
     </div>
-  <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
-    crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/js/sidebar.js"></script>
 </body>

@@ -14,7 +14,18 @@
     <body>
         <div class="d-flex justify-content-center align-items-center mt-5">
         <div class="card mt-5">
-        <form method="POST">
+        @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+        @endif
+        <form method="POST" action="/login">
+        @csrf
         <h1 class="d-flex justify-content-center align-items-center my-5">Admin Login</h1>
         <p class="d-flex justify-content-center align-items-center">Please enter your credentials below to continue.</p>
         <div class="d-flex justify-content-center align-items-center my-4">
