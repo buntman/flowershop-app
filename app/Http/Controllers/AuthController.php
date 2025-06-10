@@ -25,7 +25,7 @@ class AuthController extends Controller
         $admin = Admin::where('username', $username)->first();
 
         if (!$admin || (!Hash::check($password, $admin->password))) {
-            return redirect('/login')->withErrors('Invalid input. Please try again.');
+            return redirect('/admin/login')->withErrors('Invalid input. Please try again.');
         }
         $request->session()->regenerate();
         $request->session()->put('admin_id', $admin->id);
@@ -34,6 +34,6 @@ class AuthController extends Controller
 
     public function logout(Request $request): RedirectResponse {
         $request->session()->flush();
-        return redirect('/login');
+        return redirect('/admin/login');
     }
 }
