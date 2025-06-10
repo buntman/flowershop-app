@@ -24,7 +24,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
         @endif
-        <form method="POST" action="/login">
+        <form method="POST" action="/admin/login">
         @csrf
         <h1 class="d-flex justify-content-center align-items-center my-5">Admin Login</h1>
         <p class="d-flex justify-content-center align-items-center">Please enter your credentials below to continue.</p>
@@ -36,14 +36,8 @@
             <label for="password"></label><br>
             <input type="password" id="password" class="form-control-lg border border-2 border-dark" placeholder="Password" name="password" required>
         </div>
-        <div class="d-flex justify-content-center align-items-center mt-5">
+        <div class="d-flex justify-content-center align-items-center my-5">
             <button type="submit" class="btn btn-primary btn-lg" name="login" value="login">Login</button>
-        </div>
-        <div class="p-4">
-                    <p>
-                    Don't have an account?
-        <a href="/employee/register" class="signup">Sign up</a>
-                    </p>
         </div>
         </form>
         </div>
