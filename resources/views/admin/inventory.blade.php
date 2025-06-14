@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link href="{{asset('css/sidebar-style.css')}}" rel="stylesheet">
+  <link href="{{asset('/css/global-style.css')}}" rel="stylesheet">
+  <link href="{{asset('/css/inventory-style.css')}}" rel="stylesheet">
 </head>
     <body>
 
@@ -82,6 +84,65 @@
 
     <div id="layoutSidenav_content">
       <main>
+                    <div class="d-flex justify-content-end">
+        <button id="add_button" type="button" rel="tooltip" class="btn btn-success btn-just-icon btn-sm" data-bs-toggle="modal" data-bs-target="#add_form">Add Product
+                    </button>
+                    </div>
+            <table class="table table-hover m-5">
+                <tbody>
+                @foreach ($products as $product)
+                <tr>
+                <td>
+                    <img src="" width="90" height="90" class="rounded">
+                </td>
+                <td>{{ $product->name }}</td>
+                <td>{{ $product->quantity }}</td>
+                <td>{{ $product->price }}</td>
+                <td>
+                    <button id="edit-button" type="button" rel="tooltip" class="btn btn-success btn-just-icon btn-sm">
+                    <i class="fas fa-pen"></i>
+                    </button>
+                    <button id="delete-button" type="button" rel="tooltip" class="btn btn-danger btn-just-icon btn-sm">
+                    <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+                </tr>
+                @endforeach
+                </tbody>
+                </table>
+            <div class="modal fade mt-5" id="add_form" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Add Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <form class="form" action="{{ route('products.add') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="row">
+                <div class="col-sm-4 mb-3">
+                    <label for="name" class="form-label">Product Name</label>
+                    <input id="name" type="text" class="form-control" placeholder="Enter product name" name="name" value="" required>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label for="quantity" class="form-label">Stock Quantity</label>
+                    <input id="quantity" type="number" class="form-control" placeholder="Enter quantity" min="1" name="quantity" value="" required>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input id="price" type="number" class="form-control" placeholder="Enter price" name="price" min="100" step="0.01" value="" required>
+                </div>
+            </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Select Image</label>
+                    <input type="file" class="form-control" name="image"required>
+                </div>
+                <div class="button-container text-center">
+                    <button id="submit" type="submit" class="btn btn-primary btn-md" name="submit" value="submit">Submit</button>
+                </div>
+            </form>
+            </div>
       </main>
     </div>
     </div>
