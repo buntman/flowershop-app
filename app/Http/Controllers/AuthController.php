@@ -11,7 +11,7 @@ use App\Models\Admin;
 class AuthController extends Controller
 {
     public function getLoginPage():View {
-        return view('login');
+        return view('auth.login');
     }
 
     public function login(Request $request): RedirectResponse {

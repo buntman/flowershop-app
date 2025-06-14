@@ -9,6 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <link href="{{asset('/css/login-style.css')}}" rel="stylesheet">
+  <link href="{{asset('/css/global-style.css')}}" rel="stylesheet">
 <title>Login</title>
 </head>
     <body>
@@ -37,7 +38,7 @@
             <input type="password" id="password" class="form-control-lg border border-2 border-dark" placeholder="Password" name="password" required>
         </div>
         <div class="d-flex justify-content-center align-items-center my-5">
-            <button type="submit" class="btn btn-primary btn-lg" name="login" value="login">Login</button>
+            <button id="submit" type="submit" class="btn btn-primary btn-lg" name="login" value="login">Login</button>
         </div>
         </form>
         </div>
