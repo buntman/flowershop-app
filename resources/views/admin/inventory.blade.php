@@ -93,7 +93,7 @@
                 @foreach ($products as $product)
                 <tr>
                 <td>
-                    <img src="" width="90" height="90" class="rounded">
+                    <img src="{{ route('products.image',$product->image_name) }}" width="90" height="90" class="rounded">
                 </td>
                 <td>{{ $product->name }}</td>
                 <td>{{ $product->quantity }}</td>
