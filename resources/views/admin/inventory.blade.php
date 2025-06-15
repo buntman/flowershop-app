@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -88,28 +90,43 @@
         <button id="add_button" type="button" rel="tooltip" class="btn btn-success btn-just-icon btn-sm" data-bs-toggle="modal" data-bs-target="#add_form">Add Product
                     </button>
                     </div>
+            <div class="container">
             <table class="table table-hover m-5">
                 <tbody>
+                <tr>
+                    <th></th>
+                    <th  class="text-center">Product Name</th>
+                    <th  class="text-center">Quantity</th>
+                    <th  class="text-center">Price</th>
+                    <th  class="text-center">Actions</th>
+                </tr>
                 @foreach ($products as $product)
                 <tr>
                 <td>
                     <img src="{{ route('products.image',$product->image_name) }}" width="90" height="90" class="rounded">
                 </td>
-                <td>{{ $product->name }}</td>
-                <td>{{ $product->quantity }}</td>
-                <td>{{ $product->price }}</td>
-                <td>
-                    <button id="edit-button" type="button" rel="tooltip" class="btn btn-success btn-just-icon btn-sm">
-                    <i class="fas fa-pen"></i>
+                <td class="text-center align-middle">{{ $product->name }}</td>
+                <td class="text-center align-middle">{{ $product->quantity }}</td>
+                <td class="text-center align-middle">{{ $product->price }}</td>
+                <td class="align-middle">
+                    <div class="d-flex justify-content-center">
+                    <button id="edit-button" type="submit" class="btn btn-primary custom">
+                                        Edit
                     </button>
-                    <button id="delete-button" type="button" rel="tooltip" class="btn btn-danger btn-just-icon btn-sm">
-                    <i class="fas fa-trash"></i>
+                    <form action = "{{route('products.destroy', $product->id)}}" method="POST" onsubmit="return confirm('Remove product?')">
+                        @csrf
+                        @method('DELETE')
+                    <button id="delete-button" type="submit" class="btn btn-danger custom ms-4">
+                                        Delete
                     </button>
+                    </form>
+                    </div>
                 </td>
                 </tr>
                 @endforeach
                 </tbody>
                 </table>
+                    </div>
             <div class="modal fade mt-5" id="add_form" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -147,6 +164,6 @@
     </div>
     </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/js/sidebar.js"></script>
+  <script src="{{asset('/js/sidebar.js')}}"></script>
 </body>
 </html>
