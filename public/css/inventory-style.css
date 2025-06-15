@@ -3,7 +3,6 @@
 
 body{
     overflow-y: hidden;
-    overflow-x: hidden;
     font-family: Poppins;
 }
 
@@ -15,4 +14,8 @@ body{
     border:none !important;
     font-weight: 500;
     font-size: 16px;
+}
+
+.custom {
+    width: 78px !important;
 }
