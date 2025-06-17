@@ -110,9 +110,12 @@
                 <td class="text-center align-middle">{{ $product->price }}</td>
                 <td class="align-middle">
                     <div class="d-flex justify-content-center">
-                    <button id="edit-button" type="submit" class="btn btn-primary custom">
+                    <form action = "{{route('products.details', $product->id)}}" method="GET">
+                        @csrf
+                    <button id="edit_button" type="button" rel="tooltip" class="btn btn-primary custom" data-bs-toggle="modal" data-bs-target="#edit_form">
                                         Edit
                     </button>
+                    </form>
                     <form action = "{{route('products.destroy', $product->id)}}" method="POST" onsubmit="return confirm('Remove product?')">
                         @csrf
                         @method('DELETE')
@@ -127,6 +130,7 @@
                 </tbody>
                 </table>
                     </div>
+            {{-- Start of add product modal form --}}
             <div class="modal fade mt-5" id="add_form" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -160,8 +164,41 @@
                 </div>
             </form>
             </div>
+            {{-- End of add product modal form --}}
+
       </main>
     </div>
+            {{-- Start of edit product modal form --}}
+            <div class="modal fade mt-5" id="edit_form" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Edit Product Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <form class="form" action="" method="POST">
+            @csrf
+            <div class="row">
+                <div class="col-sm-4 mb-3">
+                    <label for="name" class="form-label">Product Name</label>
+                    <input id="name" type="text" class="form-control" placeholder="Enter product name" name="name" value="" required>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label for="quantity" class="form-label">Stock Quantity</label>
+                    <input id="quantity" type="number" class="form-control" placeholder="Enter quantity" min="1" name="quantity" value="" required>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input id="price" type="number" class="form-control" placeholder="Enter price" name="price" min="100" step="0.01" value="" required>
+                </div>
+            </div>
+                <div class="button-container text-center">
+                    <button id="submit" type="submit" class="btn btn-primary btn-md" name="submit" value="submit">Submit</button>
+                </div>
+            </form>
+            </div>
+            {{-- End of edit product modal form --}}
     </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="{{asset('/js/sidebar.js')}}"></script>
