@@ -29,18 +29,17 @@ class InventoryController extends Controller
         $file = $request->file('image')->store('images');
         $file_name = basename($file);
 
-        $product = new Product();
-
-        $product->name = $validated['name'];
-        $product->quantity = $validated['quantity'];
-        $product->price = $validated['price'];
-        $product->image_name = $file_name;
-        $product->save();
+        $product = Product::create([
+            'name' => $validated['name'],
+            'quantity' => $validated['quantity'],
+            'price' => $validated['price'],
+            'image_name' => $file_name,
+        ]);
 
         return redirect('/inventory');
     }
 
-    public function destroy(Request $request, $product_id) {
+    public function destroy($product_id) {
         Product::where('id', $product_id)->delete();
         return redirect('/inventory');
     }
