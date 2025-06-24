@@ -10,7 +10,6 @@ use App\Models\Product;
 
 class InventoryController extends Controller
 {
-    private $product;
 
     public function inventory():View {
         $products = Product::all();
@@ -29,7 +28,7 @@ class InventoryController extends Controller
         $file = $request->file('image')->store('images');
         $file_name = basename($file);
 
-        $product = Product::create([
+        Product::create([
             'name' => $validated['name'],
             'quantity' => $validated['quantity'],
             'price' => $validated['price'],
@@ -37,6 +36,14 @@ class InventoryController extends Controller
         ]);
 
         return redirect('/inventory');
+    }
+
+    public function fetchCurrentProductDetails(Request $request) {
+        $validated = $request->validate([
+            'id' => 'required',
+        ]);
+        $product = Product::find($validated['id']);
+        return $product->toJson();
     }
 
     public function destroy($product_id) {

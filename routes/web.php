@@ -12,4 +12,4 @@ Route::get('/inventory', [InventoryController::class, 'inventory'])->middleware(
 Route::post('/inventory/products/add', [InventoryController::class, 'addProduct'])->name('products.add');
 Route::get('/images/{filename}', [StorageController::class, 'show'])->middleware('auth')->name('products.image');
 Route::delete('/inventory/products/{id}/delete', [InventoryController::class, 'destroy'])->name('products.destroy');
-Route::get('/inventory/products/{id}', [InventoryController::class, 'display'])->name('products.details');
+Route::post('/inventory/products', [InventoryController::class, 'fetchCurrentProductDetails']);

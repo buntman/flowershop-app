@@ -1,5 +1,4 @@
 @extends('components.admin-layout')
-
 <link href="{{asset('/css/inventory-style.css')}}" rel="stylesheet">
 @section('title', 'Inventory')
 
@@ -28,12 +27,9 @@
                 <td class="text-center align-middle">{{ $product->price }}</td>
                 <td class="align-middle">
                     <div class="d-flex justify-content-center">
-                    <form action = "{{route('products.details', $product->id)}}" method="GET">
-                        @csrf
-                    <button id="edit_button" type="button" rel="tooltip" class="btn btn-primary custom" data-bs-toggle="modal" data-bs-target="#edit_form">
+                    <button id="edit_button" type="button" rel="tooltip" class="btn btn-primary custom" data-bs-toggle="modal" data-bs-target="#edit_form" onclick="fetchProductToEdit({{ $product->id }})">
                                         Edit
                     </button>
-                    </form>
                     <form action = "{{route('products.destroy', $product->id)}}" method="POST" onsubmit="return confirm('Remove product?')">
                         @csrf
                         @method('DELETE')
@@ -98,16 +94,16 @@
             @csrf
             <div class="row">
                 <div class="col-sm-4 mb-3">
-                    <label for="name" class="form-label">Product Name</label>
-                    <input id="name" type="text" class="form-control" placeholder="Enter product name" name="name" value="" required>
+                    <label for="edit-name" class="form-label">Product Name</label>
+                    <input id="edit-name" type="text" class="form-control" placeholder="Enter product name" name="edit-name" value="" required>
                 </div>
                 <div class="col-sm-4 mb-3">
-                    <label for="quantity" class="form-label">Stock Quantity</label>
-                    <input id="quantity" type="number" class="form-control" placeholder="Enter quantity" min="1" name="quantity" value="" required>
+                    <label for="edit-quantity" class="form-label">Stock Quantity</label>
+                    <input id="edit-quantity" type="number" class="form-control" placeholder="Enter quantity" min="1" name="edit-quantity" value="" required>
                 </div>
                 <div class="col-sm-4 mb-3">
-                    <label for="price" class="form-label">Price</label>
-                    <input id="price" type="number" class="form-control" placeholder="Enter price" name="price" min="100" step="0.01" value="" required>
+                    <label for="edit-price" class="form-label">Price</label>
+                    <input id="edit-price" type="number" class="form-control" placeholder="Enter price" name="edit-price" min="100" step="0.01" value="" required>
                 </div>
             </div>
                 <div class="button-container text-center">
@@ -117,4 +113,5 @@
             </div>
             {{-- End of edit product modal form --}}
     </div>
+    <script src="{{ asset('/js/inventory.js') }}"></script>
 @endsection
