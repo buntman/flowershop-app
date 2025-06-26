@@ -38,16 +38,24 @@ class InventoryController extends Controller
         return redirect('/inventory');
     }
 
-    public function fetchCurrentProductDetails(Request $request) {
-        $validated = $request->validate([
-            'id' => 'required',
-        ]);
-        $product = Product::find($validated['id']);
+    public function fetchCurrentProductDetails($product_id) {
+        $product = Product::find($product_id);
         return $product->toJson();
+    }
+
+    public function update($product_id, Request $request) {
+        $input = $request->all();
+        Product::where('id', $product_id)->update([
+            'name' => $input['name'],
+            'quantity' => $input['quantity'],
+            'price' => $input['price']
+        ]);
+        return response()->json(['success' => true, 'message' => 'Successfully Edited!']);
     }
 
     public function destroy($product_id) {
         Product::where('id', $product_id)->delete();
         return redirect('/inventory');
     }
+
 }
