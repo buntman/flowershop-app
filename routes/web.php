@@ -11,5 +11,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/inventory', [InventoryController::class, 'inventory'])->middleware('auth');
 Route::post('/inventory/products/add', [InventoryController::class, 'addProduct'])->name('products.add');
 Route::get('/images/{filename}', [StorageController::class, 'show'])->middleware('auth')->name('products.image');
-Route::delete('/inventory/products/{id}/delete', [InventoryController::class, 'destroy'])->name('products.destroy');
-Route::post('/inventory/products', [InventoryController::class, 'fetchCurrentProductDetails']);
+Route::delete('/inventory/products/{id}', [InventoryController::class, 'destroy'])->name('products.destroy');
+Route::get('/inventory/products/{id}', [InventoryController::class, 'fetchCurrentProductDetails']);
+Route::patch('/inventory/products/{id}', [InventoryController::class, 'update']);

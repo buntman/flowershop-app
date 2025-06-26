@@ -27,9 +27,11 @@
                 <td class="text-center align-middle">{{ $product->price }}</td>
                 <td class="align-middle">
                     <div class="d-flex justify-content-center">
+                    <div>
                     <button id="edit_button" type="button" rel="tooltip" class="btn btn-primary custom" data-bs-toggle="modal" data-bs-target="#edit_form" onclick="fetchProductToEdit({{ $product->id }})">
                                         Edit
                     </button>
+                    </div>
                     <form action = "{{route('products.destroy', $product->id)}}" method="POST" onsubmit="return confirm('Remove product?')">
                         @csrf
                         @method('DELETE')
@@ -90,20 +92,19 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            <form class="form" action="" method="POST">
-            @csrf
+            <form class="form" onsubmit="update(event)">
             <div class="row">
                 <div class="col-sm-4 mb-3">
                     <label for="edit-name" class="form-label">Product Name</label>
-                    <input id="edit-name" type="text" class="form-control" placeholder="Enter product name" name="edit-name" value="" required>
+                    <input id="edit-name" type="text" class="form-control" placeholder="Enter product name" name="name" value="" required>
                 </div>
                 <div class="col-sm-4 mb-3">
                     <label for="edit-quantity" class="form-label">Stock Quantity</label>
-                    <input id="edit-quantity" type="number" class="form-control" placeholder="Enter quantity" min="1" name="edit-quantity" value="" required>
+                    <input id="edit-quantity" type="number" class="form-control" placeholder="Enter quantity" min="1" name="quantity" value="" required>
                 </div>
                 <div class="col-sm-4 mb-3">
                     <label for="edit-price" class="form-label">Price</label>
-                    <input id="edit-price" type="number" class="form-control" placeholder="Enter price" name="edit-price" min="100" step="0.01" value="" required>
+                    <input id="edit-price" type="number" class="form-control" placeholder="Enter price" name="price" min="100" step="0.01" value="" required>
                 </div>
             </div>
                 <div class="button-container text-center">
