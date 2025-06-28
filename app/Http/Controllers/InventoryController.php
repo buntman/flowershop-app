@@ -40,7 +40,7 @@ class InventoryController extends Controller
 
     public function fetchCurrentProductDetails($product_id) {
         $product = Product::find($product_id);
-        return $product->toJson();
+        return response()->json($product);
     }
 
     public function update($product_id, Request $request) {

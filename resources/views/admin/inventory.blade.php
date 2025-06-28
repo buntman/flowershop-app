@@ -91,6 +91,16 @@
             <div class="modal fade mt-5" id="edit_form" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                 <div class="modal-content">
+                @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                        </ul>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
                 <div class="modal-header">
                 <h5 class="modal-title" id="modalLabel">Edit Product Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
