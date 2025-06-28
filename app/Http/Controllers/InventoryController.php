@@ -44,11 +44,6 @@ class InventoryController extends Controller
     }
 
     public function update($product_id, Request $request) {
-        $input = $request->all();
-        Product::where('id', $product_id)->update([
-            'name' => $input['name'],
-            'quantity' => $input['quantity'],
-            'price' => $input['price']
         $validated = $request->validate([
             'name' => 'required|max:20',
             'quantity' => 'required|min:1',
