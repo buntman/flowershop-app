@@ -85,7 +85,6 @@
             </form>
             </div>
             {{-- End of add product modal form --}}
-<<<<<<< Updated upstream
       </main>
     </div>
             {{-- Start of edit product modal form --}}

@@ -49,6 +49,16 @@ class InventoryController extends Controller
             'name' => $input['name'],
             'quantity' => $input['quantity'],
             'price' => $input['price']
+        $validated = $request->validate([
+            'name' => 'required|max:20',
+            'quantity' => 'required|min:1',
+            'price' => 'required|numeric|min:100'
+        ]);
+
+        Product::where('id', $product_id)->update([
+            'name' => $validated['name'],
+            'quantity' => $validated['quantity'],
+            'price' => $validated['price']
         ]);
         return response()->json(['success' => true, 'message' => 'Successfully Edited!']);
     }
@@ -57,5 +67,4 @@ class InventoryController extends Controller
         Product::where('id', $product_id)->delete();
         return redirect('/inventory');
     }
-
 }
