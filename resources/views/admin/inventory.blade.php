@@ -9,9 +9,10 @@
 @section('content')
         <div class="d-flex justify-content-end">
         <button id="add_button" type="button" rel="tooltip" class="btn btn-success btn-just-icon btn-sm" data-bs-toggle="modal" data-bs-target="#add_form">Add Product
-                    </button>
-                    </div>
+        </button>
+        </div>
             <div class="container">
+            @include('shared.success-message')
             <table class="table table-hover m-5">
                 <tbody>
                 <tr>

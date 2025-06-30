@@ -16,7 +16,6 @@
   <link href="{{asset('/css/global-style.css')}}" rel="stylesheet">
 
 <!-- Tailwind CSS (Development CDN) -->
-  @livewireStyles
     </head>
     <body>
     @include('components.admin-profile')
@@ -28,9 +27,7 @@
             </main>
         </div>
     </div>
-    @livewireScripts
     <script src="{{ asset('/js/sidebar.js') }}"></script>
     @stack('scripts')
-    @livewire('wire-elements-modal')
     </body>
 </html>

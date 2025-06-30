@@ -19,13 +19,14 @@ class InventoryController extends Controller
     public function addProduct(Request $request): RedirectResponse {
         $validated = $request->validate([
             'name' => 'required|unique:products|max:20',
-            'quantity' => 'required|min:1',
+            'quantity' => 'required|numeric|min:1',
             'price' => 'required|numeric|min:100',
             'image' => ['required', File::image()
                 ->min('1kb')
                 ->max('5mb')],
         ]);
-        $file = $request->file('image')->store('images');
+
+        $file = $validated['image']->store('images');
         $file_name = basename($file);
 
         Product::create([
@@ -35,7 +36,7 @@ class InventoryController extends Controller
             'image_name' => $file_name,
         ]);
 
-        return redirect('/inventory');
+        return redirect('/inventory')->with('success', 'Product created Successfully!');
     }
 
     public function fetchCurrentProductDetails($product_id) {
@@ -60,6 +61,6 @@ class InventoryController extends Controller
 
     public function destroy($product_id) {
         Product::where('id', $product_id)->delete();
-        return redirect('/inventory');
+        return redirect('/inventory')->with('success', 'Product deleted Successfully!');
     }
 }

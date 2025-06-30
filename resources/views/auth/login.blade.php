@@ -16,7 +16,7 @@
         <div class="d-flex justify-content-center align-items-center mt-5">
         <div class="card mt-5">
         @if ($errors->any())
-                <div class="alert alert-danger alert-dismissible fade show">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <ul>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
