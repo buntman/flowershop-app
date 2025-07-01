@@ -15,16 +15,7 @@
     <body>
         <div class="d-flex justify-content-center align-items-center mt-5">
         <div class="card mt-5">
-        @if ($errors->any())
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-                    </ul>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-        @endif
+        @include('shared.error-message')
         <form method="POST" action="/admin/login">
         @csrf
         <h1 class="d-flex justify-content-center align-items-center my-5">Admin Login</h1>

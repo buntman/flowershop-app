@@ -2,10 +2,6 @@
 <link href="{{asset('/css/inventory-style.css')}}" rel="stylesheet">
 @section('title', 'Inventory')
 
-
-<link href="{{asset('/css/inventory-style.css')}}" rel="stylesheet">
-@section('title', 'Inventory')
-
 @section('content')
         <div class="d-flex justify-content-end">
         <button id="add_button" type="button" rel="tooltip" class="btn btn-success btn-just-icon btn-sm" data-bs-toggle="modal" data-bs-target="#add_form">Add Product
@@ -13,6 +9,7 @@
         </div>
             <div class="container">
             @include('shared.success-message')
+            @include('shared.error-message')
             <table class="table table-hover m-5">
                 <tbody>
                 <tr>
@@ -92,16 +89,6 @@
             <div class="modal fade mt-5" id="edit_form" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                @if ($errors->any())
-                    <div class="alert alert-danger alert-dismissible fade show">
-                        <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                        </ul>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
                 <div class="modal-header">
                 <h5 class="modal-title" id="modalLabel">Edit Product Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
