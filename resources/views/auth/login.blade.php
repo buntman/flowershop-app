@@ -15,7 +15,7 @@
     <body>
         <div class="d-flex justify-content-center align-items-center mt-5">
         <div class="card mt-5">
-        @include('shared.error-message')
+        @include('shared.validation-error-message')
         <form method="POST" action="/admin/login">
         @csrf
         <h1 class="d-flex justify-content-center align-items-center my-5">Admin Login</h1>

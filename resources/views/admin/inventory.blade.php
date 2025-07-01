@@ -8,8 +8,9 @@
         </button>
         </div>
             <div class="container">
-            @include('shared.success-message')
-            @include('shared.error-message')
+            @include('shared.session-success-message')
+            @include('shared.session-error-message')
+            @include('shared.validation-error-message')
             <table class="table table-hover m-5">
                 <tbody>
                 <tr>
@@ -94,7 +95,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            <form class="form" onsubmit="update(event)">
+            <form class="form" action="{{route('products.edit')}}" method="POST">
+            @csrf
+            @method('PATCH')
+            <input type="hidden" id="edit-productId" name="productId" value="" />
             <div class="row">
                 <div class="col-sm-4 mb-3">
                     <label for="edit-name" class="form-label">Product Name</label>

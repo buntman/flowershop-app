@@ -19,7 +19,7 @@ class InventoryController extends Controller
     public function addProduct(Request $request): RedirectResponse {
         $validated = $request->validate([
             'name' => 'required|unique:products|max:20',
-            'quantity' => 'required|numeric|min:1',
+            'quantity' => 'required|integer|min:1',
             'price' => 'required|numeric|min:100',
             'image' => ['required', File::image()
                 ->min('1kb')
@@ -36,7 +36,7 @@ class InventoryController extends Controller
             'image_name' => $file_name,
         ]);
 
-        return redirect('/inventory')->with('success', 'Product created Successfully!');
+        return redirect('/inventory')->with('success', 'Product added successfully.');
     }
 
     public function fetchCurrentProductDetails($product_id) {
@@ -44,23 +44,30 @@ class InventoryController extends Controller
         return response()->json($product);
     }
 
-    public function update($product_id, Request $request) {
+    public function update(Request $request) {
         $validated = $request->validate([
+            'productId' => 'required|exists:products,id|integer',
             'name' => 'required|max:20',
-            'quantity' => 'required|min:1',
+            'quantity' => 'required|integer|min:1',
             'price' => 'required|numeric|min:100'
         ]);
 
-        Product::where('id', $product_id)->update([
+        $product = Product::find($validated['productId']);
+        if($product->name == $validated['name'] && $product->quantity == $validated['quantity'] && $product->price == $validated['price']) {
+            return redirect('/inventory')->with('error', 'No changes detected. Please make a change before submitting.');
+        }
+
+        Product::where('id', $validated['productId'])->update([
             'name' => $validated['name'],
             'quantity' => $validated['quantity'],
             'price' => $validated['price']
         ]);
-        return response()->json(['success' => true, 'message' => 'Successfully Edited!']);
+
+        return redirect('/inventory')->with('success', 'Product edited successfully.');
     }
 
     public function destroy($product_id) {
         Product::where('id', $product_id)->delete();
-        return redirect('/inventory')->with('success', 'Product deleted Successfully!');
+        return redirect('/inventory')->with('success', 'Product deleted successfully.');
     }
 }

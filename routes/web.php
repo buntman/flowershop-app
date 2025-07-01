@@ -13,4 +13,4 @@ Route::post('/inventory/products/add', [InventoryController::class, 'addProduct'
 Route::get('/images/{filename}', [StorageController::class, 'show'])->middleware('auth')->name('products.image');
 Route::delete('/inventory/products/{id}', [InventoryController::class, 'destroy'])->name('products.destroy');
 Route::get('/inventory/products/{id}', [InventoryController::class, 'fetchCurrentProductDetails'])->middleware('auth');
-Route::patch('/inventory/products/{id}', [InventoryController::class, 'update']);
+Route::patch('/inventory/products', [InventoryController::class, 'update'])->name('products.edit')->middleware('auth');
