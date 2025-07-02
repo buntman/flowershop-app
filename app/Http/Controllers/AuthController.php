@@ -10,11 +10,13 @@ use App\Models\Admin;
 
 class AuthController extends Controller
 {
-    public function getLoginPage():View {
+    public function getLoginPage(): View
+    {
         return view('auth.login');
     }
 
-    public function login(Request $request): RedirectResponse {
+    public function login(Request $request): RedirectResponse
+    {
         $validated = $request->validate([
             'username' => 'required',
             'password' => 'required',
@@ -32,7 +34,8 @@ class AuthController extends Controller
         return redirect('/inventory');
     }
 
-    public function logout(Request $request): RedirectResponse {
+    public function logout(Request $request): RedirectResponse
+    {
         $request->session()->flush();
         return redirect('/admin/login');
     }

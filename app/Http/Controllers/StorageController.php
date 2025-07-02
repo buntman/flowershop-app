@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Storage;
 
 class StorageController extends Controller
 {
-    public function show(Request $request, $filename) {
+    public function show(Request $request, $filename)
+    {
         $folder = 'images';
         $path = $folder . '/' . $filename;
 
