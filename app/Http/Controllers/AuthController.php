@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Hash;
-use App\Models\Admin;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -17,24 +16,28 @@ class AuthController extends Controller
 
     public function login(Request $request): RedirectResponse
     {
-        $validated = $request->validate([
+        $credentials = $request->validate([
             'username' => 'required',
             'password' => 'required',
         ]);
 
-        $admin = Admin::where('username', $validated['username'])->first();
-
-        if (!$admin || (!Hash::check($validated['password'], $admin->password))) {
-            return redirect('/admin/login')->withErrors('Invalid input. Please try again.');
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended('inventory');
         }
-        $request->session()->regenerate();
-        $request->session()->put('admin_id', $admin->id);
-        return redirect('/inventory');
+
+        return back()->withErrors(['username' => 'The provided credetentials does not match our records.'
+        ])->onlyInput('username');
     }
 
     public function logout(Request $request): RedirectResponse
     {
-        $request->session()->flush();
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
         return redirect('/admin/login');
     }
 }

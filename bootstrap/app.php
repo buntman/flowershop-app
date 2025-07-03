@@ -1,10 +1,8 @@
 <?php
 
-use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use App\Http\Middleware\EnsureAdminIsAuthenticated;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -13,10 +11,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->alias([
-            'auth' => EnsureAdminIsAuthenticated::class,
-            'guest' => RedirectIfAuthenticated::class
-        ]);
+        $middleware->redirectGuestsTo('/admin/login');
+        $middleware->redirectUsersTo('/inventory');
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

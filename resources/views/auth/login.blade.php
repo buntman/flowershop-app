@@ -22,7 +22,7 @@
         <p class="d-flex justify-content-center align-items-center">Please enter your credentials below to continue.</p>
         <div class="d-flex justify-content-center align-items-center my-4">
             <label for="username"></label><br>
-            <input type="text" id="username" class="form-control-lg border border-2 border-dark" placeholder="Username" name="username" required>
+            <input type="text" id="username" class="form-control-lg border border-2 border-dark" placeholder="Username" name="username" required value="{{ old('username') }}">
         </div>
         <div class="d-flex justify-content-center align-items-center">
             <label for="password"></label><br>

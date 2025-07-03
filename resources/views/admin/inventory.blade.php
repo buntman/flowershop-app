@@ -63,20 +63,20 @@
             <div class="row">
                 <div class="col-sm-4 mb-3">
                     <label for="name" class="form-label">Product Name</label>
-                    <input id="name" type="text" class="form-control" placeholder="Enter product name" name="name" value="" required>
+                    <input id="name" type="text" class="form-control" placeholder="Enter product name" name="name" value="{{old('name')}}" required>
                 </div>
                 <div class="col-sm-4 mb-3">
                     <label for="quantity" class="form-label">Stock Quantity</label>
-                    <input id="quantity" type="number" class="form-control" placeholder="Enter quantity" min="1" name="quantity" value="" required>
+                    <input id="quantity" type="number" class="form-control" placeholder="Enter quantity" min="1" name="quantity" value="{{old('quantity')}}" required>
                 </div>
                 <div class="col-sm-4 mb-3">
                     <label for="price" class="form-label">Price</label>
-                    <input id="price" type="number" class="form-control" placeholder="Enter price" name="price" min="100" step="0.01" value="" required>
+                    <input id="price" type="number" class="form-control" placeholder="Enter price" name="price" min="100" step="0.01" value="{{old('price')}}" required>
                 </div>
             </div>
                 <div class="mb-3">
                     <label for="image" class="form-label">Select Image</label>
-                    <input type="file" class="form-control" name="image"required>
+                    <input type="file" class="form-control" name="image"required value="">
                 </div>
                 <div class="button-container text-center">
                     <button id="submit" type="submit" class="btn btn-primary btn-md" name="submit" value="submit">Submit</button>
