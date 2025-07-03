@@ -35,7 +35,7 @@
                                         Edit
                     </button>
                     </div>
-                    <form action = "{{route('products.destroy', $product->id)}}" method="POST" onsubmit="return confirm('Remove product?')">
+                    <form action = "{{route('products.destroy', $product)}}" method="POST" onsubmit="return confirm('Remove product?')">
                         @csrf
                         @method('DELETE')
                     <button id="delete-button" type="submit" class="btn btn-danger custom ms-4">

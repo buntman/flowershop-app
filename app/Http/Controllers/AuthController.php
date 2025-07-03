@@ -21,12 +21,10 @@ class AuthController extends Controller
             'username' => 'required',
             'password' => 'required',
         ]);
-        $username = $validated['username'];
-        $password = $validated['password'];
 
-        $admin = Admin::where('username', $username)->first();
+        $admin = Admin::where('username', $validated['username'])->first();
 
-        if (!$admin || (!Hash::check($password, $admin->password))) {
+        if (!$admin || (!Hash::check($validated['password'], $admin->password))) {
             return redirect('/admin/login')->withErrors('Invalid input. Please try again.');
         }
         $request->session()->regenerate();

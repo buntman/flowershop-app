@@ -47,7 +47,7 @@ class InventoryController extends Controller
         return response()->json($product);
     }
 
-    public function update(Request $request)
+    public function update(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'productId' => 'required|exists:products,id|integer',
@@ -73,12 +73,8 @@ class InventoryController extends Controller
         return redirect('/inventory')->with('success', 'Product edited successfully.');
     }
 
-    public function destroy($product_id)
+    public function destroy(Product $product): RedirectResponse
     {
-        $product = Product::find($product_id);
-        if (!$product) {
-            return redirect('/inventory')->with('error', 'Product does not exists.');
-        }
         Storage::delete('images/' . $product->image_name); //remove the file in storage
         $product->delete();
         return redirect('/inventory')->with('success', 'Product deleted successfully.');
