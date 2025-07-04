@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthRequest;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -14,19 +15,14 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function login(Request $request): RedirectResponse
+    public function login(AuthRequest $request): RedirectResponse
     {
-        $credentials = $request->validate([
-            'username' => 'required',
-            'password' => 'required',
-        ]);
-
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($request->validated())) {
             $request->session()->regenerate();
             return redirect()->intended('inventory');
         }
 
-        return back()->withErrors(['username' => 'The provided credetentials does not match our records.'
+        return back()->withErrors(['username' => 'The provided credentials does not match our records.'
         ])->onlyInput('username');
     }
 

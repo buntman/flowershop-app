@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddProductRequest;
+use App\Http\Requests\EditProductRequest;
 use Illuminate\View\View;
-use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Validation\Rules\File;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Product;
 
@@ -17,17 +17,9 @@ class InventoryController extends Controller
         return view('admin.inventory', ['products' => $products]);
     }
 
-    public function addProduct(Request $request): RedirectResponse
+    public function addProduct(AddProductRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => 'required|unique:products|max:20',
-            'quantity' => 'required|integer|min:1',
-            'price' => 'required|numeric|min:100',
-            'image' => ['required', File::image()
-                ->min('1kb')
-                ->max('5mb')],
-        ]);
-
+        $validated = $request->validated();
         $file = $validated['image']->store('images');
         $file_name = basename($file);
 
@@ -47,14 +39,9 @@ class InventoryController extends Controller
         return response()->json($product);
     }
 
-    public function update(Request $request): RedirectResponse
+    public function update(EditProductRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'productId' => 'required|exists:products,id|integer',
-            'name' => 'required|unique:products|max:20',
-            'quantity' => 'required|integer|min:1',
-            'price' => 'required|numeric|min:100'
-        ]);
+        $validated = $request->validated();
 
         $product = Product::find($validated['productId']);
         if (
