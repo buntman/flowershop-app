@@ -17,7 +17,7 @@ class AuthController extends Controller
 
     public function login(AuthRequest $request): RedirectResponse
     {
-        if (Auth::attempt($request->validated())) {
+        if (Auth::guard('admin')->attempt($request->validated())) {
             $request->session()->regenerate();
             return redirect()->intended('inventory');
         }
@@ -28,7 +28,7 @@ class AuthController extends Controller
 
     public function logout(Request $request): RedirectResponse
     {
-        Auth::logout();
+        Auth::guard('admin')->logout();
 
         $request->session()->invalidate();
 
