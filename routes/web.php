@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\InventoryController;
-use App\Http\Controllers\StorageController;
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\InventoryController;
+use App\Http\Controllers\Admin\StorageController;
 
 Route::get('/admin/login', [AuthController::class, 'getLoginPage'])->middleware('guest:admin');
 Route::post('/admin/login', [AuthController::class, 'login']);
