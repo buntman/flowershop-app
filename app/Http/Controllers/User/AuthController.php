@@ -16,13 +16,12 @@ class AuthController extends Controller
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
-        return response()->json(['message' => 'Registered Succesfully.']);
+        return response()->json(['message' => 'Registered Succesfully.'], 200);
     }
 
     public function login(LoginRequest $request) {
         $input = $request->validated();
         $user = User::where('email', $input['email'])->first();
-
         if (!$user || !Hash::check($input['password'], $user['password'])) {
             return response()->json(['message' => 'Invalid input. Please try again.'], 422);
         }

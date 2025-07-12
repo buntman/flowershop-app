@@ -13,7 +13,7 @@ Route::get('/inventory', [InventoryController::class, 'inventory'])
 Route::post('/inventory/products/add', [InventoryController::class, 'addProduct'])
     ->middleware('auth:admin')->name('products.add');
 Route::get('/images/{filename}', [StorageController::class, 'show'])
-    ->middleware('auth:admin')->name('products.image');
+    ->name('products.image');
 Route::delete('/inventory/products/{product}', [InventoryController::class, 'destroy'])
     ->middleware('auth:admin')->name('products.destroy');
 Route::get('/inventory/products/{id}', [InventoryController::class, 'fetchCurrentProductDetails'])
