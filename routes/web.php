@@ -9,7 +9,7 @@ Route::get('/admin/login', [AuthController::class, 'getLoginPage'])->middleware(
 Route::post('/admin/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/inventory', [InventoryController::class, 'inventory'])
-    ->middleware('auth:admin');
+    ->middleware('auth:admin')->name('inventory');
 Route::post('/inventory/products/add', [InventoryController::class, 'addProduct'])
     ->middleware('auth:admin')->name('products.add');
 Route::get('/images/{filename}', [StorageController::class, 'show'])
