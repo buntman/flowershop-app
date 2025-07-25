@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->longText('password');
             $table->string('name')->nullable();
-            $table->string('contact_number')->nullable();
+            $table->string('contact_number', length:11)->nullable();
             $table->timestamps();
         });
     }
