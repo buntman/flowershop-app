@@ -36,10 +36,10 @@ class CartController extends Controller
             return response()->json(['message' => 'Added Successfully!'], 200);
         }
         //product already exists in user's cart
-        $cart_item = CartItem::where('product_id', $product->id)->where('cart_id', $cart->id)->first();
-        if ($cart_item) {
-            $cart_item->increment('quantity');
-            $cart_item->update([
+        $existing_cart = CartItem::where('product_id', $product->id)->where('cart_id', $cart->id)->first();
+        if ($existing_cart) {
+            $existing_cart->increment('quantity');
+            $existing_cart->update([
                 'sub_total' => DB::raw('quantity * price'),
             ]);
             return response()->json(['message' => 'Added Successfully!'], 200);
@@ -110,7 +110,19 @@ class CartController extends Controller
         return response()->noContent();
     }
 
-    public function calculateTotalPrice() {
+    public function updateCartStatus(Request $request, $cart_id) {
+        $input = $request->validate([
+            'status' => 'required',
+        ]);
+        $cart = Cart::find($cart_id);
+        if (!$cart) {
+            return response()->json(['message' => 'Cart does not exist.'], 404);
+        }
+        $cart->update(['status' => $input['status']]);
+        return response()->noContent();
+    }
+
+    public function getCartTotal() {
         $user_id = auth('api')->id();
         $cart = Cart::where('user_id', $user_id)->where('status', 'active')->first();
         if (!$cart) {
@@ -120,4 +132,5 @@ class CartController extends Controller
         $total_price = $items->sum('sub_total');
         return response()->json(['total_price' => $total_price], 200);
     }
+
 }
