@@ -11,7 +11,7 @@ use App\Models\Product;
 
 class CartController extends Controller
 {
-    public function addToCart(Request $request) {
+    public function add(Request $request) {
         $input = $request->validate([
             'product_id' => 'required|exists:products,id|integer',
         ]);
@@ -54,7 +54,7 @@ class CartController extends Controller
         return response()->json(['message' => 'Added Successfully!'], 200);
     }
 
-    public function fetchItemsInCart() {
+    public function getCartItems() {
         $user_id = auth('api')->id();
         $items = DB::table('carts')
         ->join('cart_items', 'carts.id', '=', 'cart_items.cart_id')
@@ -133,4 +133,15 @@ class CartController extends Controller
         return response()->json(['total_price' => $total_price], 200);
     }
 
+    public function getItemsForCheckout() {
+        $user = auth()->user();
+        $cart = Cart::where('user_id', $user->id)->where('status', 'active')->first();
+        $active_items = DB::table('carts')
+        ->join('cart_items', 'carts.id', '=', 'cart_items.cart_id')
+        ->join('products', 'cart_items.product_id', '=', 'products.id')
+        ->select('products.id', 'products.name', 'cart_items.quantity', 'cart_items.sub_total')
+        ->where('carts.user_id', $user->id)
+        ->where('carts.status', 'active')->get();
+        return response()->json(['cart_id' => $cart->id, 'items' => $active_items], 200);
+    }
 }

@@ -18,23 +18,23 @@ class InventoryController extends Controller
         return view('admin.inventory', ['products' => $products]);
     }
 
-    public function addProduct(AddProductRequest $request): RedirectResponse
+    public function add(AddProductRequest $request): RedirectResponse
     {
-        $validated = $request->validated();
-        $file = $validated['image']->store('images');
+        $input = $request->validated();
+        $file = $input['image']->store('images');
         $file_name = basename($file);
 
         Product::create([
-            'name' => $validated['name'],
-            'quantity' => $validated['quantity'],
-            'price' => $validated['price'],
+            'name' => $input['name'],
+            'quantity' => $input['quantity'],
+            'price' => $input['price'],
             'image_name' => $file_name,
         ]);
 
         return redirect('/inventory')->with('success', 'Product added successfully.');
     }
 
-    public function fetchCurrentProductDetails($product_id)
+    public function get($product_id)
     {
         $product = Product::find($product_id);
         return response()->json($product);
@@ -42,20 +42,20 @@ class InventoryController extends Controller
 
     public function update(EditProductRequest $request): RedirectResponse
     {
-        $validated = $request->validated();
+        $input = $request->validated();
 
-        $product = Product::find($validated['productId']);
+        $product = Product::find($input['productId']);
         if (
-            $product->name == $validated['name'] &&
-            $product->quantity == $validated['quantity'] &&
-            bccomp($product->price, $validated['price'], 2) === 0) { //compare up to 2 decimal places
+            $product->name == $input['name'] &&
+            $product->quantity == $input['quantity'] &&
+            bccomp($product->price, $input['price'], 2) === 0) {
             return redirect('/inventory')->with('error', 'No changes detected. Please make a change before submitting.');
         }
 
-        Product::where('id', $validated['productId'])->update([
-            'name' => $validated['name'],
-            'quantity' => $validated['quantity'],
-            'price' => $validated['price']
+        Product::where('id', $input['productId'])->update([
+            'name' => $input['name'],
+            'quantity' => $input['quantity'],
+            'price' => $input['price']
         ]);
 
         return redirect('/inventory')->with('success', 'Product edited successfully.');

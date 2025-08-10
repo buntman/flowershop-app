@@ -7,7 +7,7 @@ use App\Models\Product;
 
 class HomeController extends Controller
 {
-    public function getRecentlyAddedBouquets() {
+    public function getNewBouquets() {
         $bouquets = Product::select('name', 'price', 'image_name')
             ->orderBy('id', 'DESC')
             ->limit(4)

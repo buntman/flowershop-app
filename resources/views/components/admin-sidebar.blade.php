@@ -7,7 +7,7 @@
             <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
               <!-- INVENTORY -->
               <li class="my-2">
-                <a href="/admin/inventory" class="nav-link border_bottom" title="Dashboard" data-bs-toggle="tooltip"
+                <a href="/inventory" class="nav-link border_bottom" title="Dashboard" data-bs-toggle="tooltip"
                   data-bs-placement="right">
                   <div class="border_box">
                   <i class="bi bi-database nav-icons"></i>
@@ -15,22 +15,24 @@
                   </div>
                 </a>
               </li>
+              <!-- DASHBOARD -->
+              <li class="my-2">
+                <a href="/dashboard" class="nav-link px-0 border_bottom" title="Dashboard" data-bs-toggle="tooltip"
+                  data-bs-placement="right">
+                  <div class="">
+                    <i class="material-icons">dashboard</i>
+                    <p>Dashboard</p>
+                  </div>
+                </a>
+              </li>
               <!-- REPORTS -->
               <li class="my-2">
-                <a href="/admin/reports" class="nav-link py-3 border_bottom" title="Orders" data-bs-toggle="tooltip"
+                <a href="/reports" class="nav-link py-3 border_bottom" title="Orders" data-bs-toggle="tooltip"
                   data-bs-placement="right">
                   <div class="">
                     <i class="bi bi-clipboard-data"></i>
                     <p>Reports</p>
                   </div>
-                </a>
-              </li>
-              <!-- MANAGE -->
-              <li class="my-2">
-                <a href="/admin/manage-account" class="nav-link" title="Products" data-bs-toggle="tooltip"
-                  data-bs-placement="right">
-                    <i class="bi bi-person-circle"></i>
-                    <p>Manage</p>
                 </a>
               </li>
             </ul>

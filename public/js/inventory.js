@@ -1,4 +1,4 @@
-function fetchProductToEdit(id) {
+function displayProductDetails(id) {
     fetch(`/inventory/products/${id}`)
     .then(response=> {
         if(!response.ok) {

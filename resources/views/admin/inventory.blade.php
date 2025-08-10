@@ -31,7 +31,7 @@
                 <td class="align-middle">
                     <div class="d-flex justify-content-center">
                     <div>
-                    <button id="edit_button" type="button" rel="tooltip" class="btn btn-primary custom" data-bs-toggle="modal" data-bs-target="#edit_form" onclick="fetchProductToEdit({{ $product->id }})">
+                    <button id="edit_button" type="button" rel="tooltip" class="btn btn-primary custom" data-bs-toggle="modal" data-bs-target="#edit_form" onclick="displayProductDetails({{ $product->id }})">
                                         Edit
                     </button>
                     </div>
