@@ -9,7 +9,8 @@ use App\Http\Requests\Api\OrderRequest;
 
 class OrderController extends Controller
 {
-    public function createOrder(OrderRequest $request) {
+    public function createOrder(OrderRequest $request)
+    {
         $user = auth()->user();
         $input = $request->validated();
         $order = Order::create([

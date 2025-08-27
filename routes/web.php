@@ -6,8 +6,8 @@ use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\Admin\StorageController;
 use App\Http\Controllers\Admin\DashboardController;
 
-Route::get('/admin/login', [AuthController::class, 'getLoginPage'])->middleware('guest:admin');
-Route::post('/admin/login', [AuthController::class, 'login']);
+Route::get('/login', [AuthController::class, 'getLoginPage'])->middleware('guest:admin');
+Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/inventory', [InventoryController::class, 'inventory'])
     ->middleware('auth:admin')->name('inventory');
@@ -21,5 +21,5 @@ Route::get('/inventory/products/{id}', [InventoryController::class, 'get'])
     ->middleware('auth:admin');
 Route::patch('/inventory/products', [InventoryController::class, 'update'])
     ->middleware('auth:admin')->name('products.edit');
-Route::get('/admin/dashboard', [DashboardController::class, 'fetchActiveOrders'])
+Route::get('/dashboard', [DashboardController::class, 'getDashboard'])
     ->middleware('auth:admin');

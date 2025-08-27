@@ -11,7 +11,8 @@ use App\Models\Product;
 
 class CartController extends Controller
 {
-    public function add(Request $request) {
+    public function add(Request $request)
+    {
         $input = $request->validate([
             'product_id' => 'required|exists:products,id|integer',
         ]);
@@ -54,7 +55,8 @@ class CartController extends Controller
         return response()->json(['message' => 'Added Successfully!'], 200);
     }
 
-    public function getCartItems() {
+    public function getCartItems()
+    {
         $user_id = auth('api')->id();
         $items = DB::table('carts')
         ->join('cart_items', 'carts.id', '=', 'cart_items.cart_id')
@@ -70,7 +72,8 @@ class CartController extends Controller
         return response()->json($items, 200);
     }
 
-    public function deleteItem($item_id) {
+    public function deleteItem($item_id)
+    {
         $item = CartItem::find($item_id);
         if (!$item) {
             return response()->json(['message' => 'Item does not exist.'], 404);
@@ -88,7 +91,8 @@ class CartController extends Controller
         return response()->json(['message' => 'Removed from cart successfully.'], 200);
     }
 
-    public function updateItemQuantity(Request $request, $item_id) {
+    public function updateItemQuantity(Request $request, $item_id)
+    {
         $item = CartItem::find($item_id);
         if (!$item) {
             return response()->json(['message' => 'Item does not exist.'], 404);
@@ -110,7 +114,8 @@ class CartController extends Controller
         return response()->noContent();
     }
 
-    public function updateCartStatus(Request $request, $cart_id) {
+    public function updateCartStatus(Request $request, $cart_id)
+    {
         $input = $request->validate([
             'status' => 'required',
         ]);
@@ -122,7 +127,8 @@ class CartController extends Controller
         return response()->noContent();
     }
 
-    public function getCartTotal() {
+    public function getCartTotal()
+    {
         $user_id = auth('api')->id();
         $cart = Cart::where('user_id', $user_id)->where('status', 'active')->first();
         if (!$cart) {
@@ -133,7 +139,8 @@ class CartController extends Controller
         return response()->json(['total_price' => $total_price], 200);
     }
 
-    public function getItemsForCheckout() {
+    public function getItemsForCheckout()
+    {
         $user = auth()->user();
         $cart = Cart::where('user_id', $user->id)->where('status', 'active')->first();
         $active_items = DB::table('carts')

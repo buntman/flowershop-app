@@ -8,7 +8,8 @@ use App\Models\User;
 
 class ProfileController extends Controller
 {
-    public function getUser(Request $request) {
+    public function getUser(Request $request)
+    {
         $user = auth()->user();
 
         //fetch user details
@@ -24,7 +25,8 @@ class ProfileController extends Controller
         return response()->json(['success' => true], 200);
     }
 
-    public function updateProfile(Request $request) {
+    public function updateProfile(Request $request)
+    {
         $input = $request->validate([
             'name' => 'required|regex:/^[\pL\s]+$/u|min:2|max:50',
             'contact_number' => 'required|digits:11',
