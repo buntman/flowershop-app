@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
       <main class="col-md-11 p-4 mt-5 container">
         <div class="row">
-
+        @include('shared.session-success-message')
           <div class="col-md-6 mb-3">
             <div class="card-custom">
               <div class="d-flex justify-content-between align-items-center">
@@ -27,10 +27,14 @@
                       </span>
                     </div>
                   </div>
-            <button id="check-button" type="button" rel="tooltip" class="btn btn-success btn-just-icon btn-sm me-4"
+                <form action="{{route('item.update', $pending_order->item_id)}}" method="POST">
+                @csrf
+                @method('PATCH')
+                <button id="check-button" type="submit" rel="tooltip" class="btn btn-success btn-just-icon btn-sm me-4"
                         title="Mark as Completed">
-                     <i class="fas fa-check-circle"></i>
-            </button>
+                        <i class="fas fa-check-circle"></i>
+                </button>
+                </form>
                 </div>
                 @endforeach
                 @else
@@ -51,21 +55,21 @@
                 <h5 class="text-light">Completed Orders</h5>
               </div>
               <div id="container" class="scrollable mt-2">
-                @if (!$completed_orders->isEmpty())
-                @foreach($completed_orders as $completed_order)
                 <!-- SECOND SECTION OF SCROLLABLE CONTENT -->
+                @if (!$completed_items->isEmpty())
+                @foreach($completed_items as $completed_item)
                 <div id="card" class="order-card d-flex align-items-center w-100" style="display:none;">
-                  <img class="product_image rounded" src="" alt="Bouquet" width="120" height="130">
+                  <img class="product_image rounded" src="{{route('products.image', $completed_item->image_name)}}" alt="Bouquet" width="120" height="130">
                   <div class="d-flex flex-column w-100 me-5 gap-0 ps-3">
-                    <p class="mb-0 fw-bold product_name"></p>
-                    <p class=" m-0 order-details">Order ID: <span class="started order_id"></span></p>
-                    <p class=" m-0 order-details">Customer: <span class="started customer_name"></span></p>
+                    <p class="mb-0 fw-bold product_name">{{$completed_item->product_name}}</p>
+                    <p class=" m-0 order-details">Order ID: <span class="started order_id">{{$completed_item->order_id}}</span></p>
+                    <p class=" m-0 order-details">Customer: <span class="started customer_name">{{$completed_item->user_name}}</span></p>
                     <div class=" d-flex flex justify-content-start align-items-center">
                       <span>
-                        <p class=" m-0 order-details">Pickup Schedule: <span class="started pickup_schedule"></span></p>
+                        <p class=" m-0 order-details">Pickup Schedule: <span class="started pickup_schedule">{{$completed_item->pickup_date}} {{$completed_item->pickup_time}}</span></p>
                       </span>
                       <span class="ms-3 ps-5">
-                        <p class=" m-0 order-details">Status: <span class="status"></span></p>
+                        <p class=" m-0 order-details">Status: <span class="status">{{$completed_item->status}}</span></p>
                       </span>
                     </div>
                   </div>

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('quantity');
             $table->decimal('sub_total', total:10, places:2);
-            $table->enum('status', ['Pending', 'Completed'])->default('Pending');
+            $table->enum('status', ['pending', 'completed'])->default('pending');
             $table->timestamps();
         });
     }
