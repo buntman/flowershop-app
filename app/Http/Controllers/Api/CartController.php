@@ -22,11 +22,11 @@ class CartController extends Controller
         $user_id = auth('api')->id();
 
         $cart = Cart::where('user_id', $user_id)->where('status', 'active')->first();
-        // Create a new cart for the user and add the selected product as the first cart item
+
         if (!$cart) {
-            $new_cart = Cart::create([
+            $new_cart = Cart::create([ // Create a new cart for user
                 'user_id' => $user_id,
-                'total_price' => $product->price,
+                'total' => $product->price,
             ]);
             CartItem::create([
                 'cart_id' => $new_cart->id,
@@ -34,6 +34,7 @@ class CartController extends Controller
                 'price' => $product->price,
                 'sub_total' => $product->price,
             ]);
+            $this->totalPriceCounter($new_cart);
             return response()->json(['message' => 'Added Successfully!'], 200);
         }
         //product already exists in user's cart
@@ -43,6 +44,7 @@ class CartController extends Controller
             $existing_cart->update([
                 'sub_total' => DB::raw('quantity * price'),
             ]);
+            $this->totalPriceCounter($cart);
             return response()->json(['message' => 'Added Successfully!'], 200);
         }
         //add new product to cart
@@ -52,6 +54,7 @@ class CartController extends Controller
             'price' => $product->price,
             'sub_total' => $product->price,
         ]);
+        $this->totalPriceCounter($cart);
         return response()->json(['message' => 'Added Successfully!'], 200);
     }
 
@@ -98,7 +101,7 @@ class CartController extends Controller
             return response()->json(['message' => 'Item does not exist.'], 404);
         }
 
-        $cart = Cart::find($item->cart_id);
+        $cart = Cart::find($item->cart_id); //only the owner of the cart can update the quantity.
         if ($cart->user_id != auth('api')->id()) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
@@ -111,6 +114,8 @@ class CartController extends Controller
             'quantity' => $input['quantity'],
             'sub_total' => $sub_total,
         ]);
+        $this->totalPriceCounter($cart);
+
         return response()->noContent();
     }
 
@@ -132,11 +137,9 @@ class CartController extends Controller
         $user_id = auth('api')->id();
         $cart = Cart::where('user_id', $user_id)->where('status', 'active')->first();
         if (!$cart) {
-            return response()->json(['total_price' => 0], 200);
+            return response()->json(['total' => 0], 200);
         }
-        $items = CartItem::where('cart_id', $cart->id)->get();
-        $total_price = $items->sum('sub_total');
-        return response()->json(['total_price' => $total_price], 200);
+        return response()->json(['total' => $cart->total], 200);
     }
 
     public function getItemsForCheckout()
@@ -150,5 +153,10 @@ class CartController extends Controller
         ->where('carts.user_id', $user->id)
         ->where('carts.status', 'active')->get();
         return response()->json(['cart_id' => $cart->id, 'items' => $active_items], 200);
+    }
+
+    public function totalPriceCounter(Cart $cart) {
+        $items = CartItem::where('cart_id', $cart->id)->get();
+        $cart->update(['total' => $items->sum('sub_total')]);
     }
 }
