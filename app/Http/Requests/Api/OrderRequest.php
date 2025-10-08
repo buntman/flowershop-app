@@ -23,14 +23,12 @@ class OrderRequest extends FormRequest
     {
         return [
             'payment_method' => 'required',
-            'pickup_date' => 'required',
-            'pickup_time' => 'required',
             'total' => 'required',
             'order_items' => 'required|array',
-            'order_items.*.productId' => 'required|exists:products,id|integer',
-            'order_items.*.name' => 'required|exists:products,name',
+            'order_items.*.product_id' => 'required|exists:products,id|integer',
+            'order_items.*.product_name' => 'required|exists:products,name',
             'order_items.*.quantity' => 'required',
-            'order_items.*.subTotal' => 'required',
+            'order_items.*.sub_total' => 'required',
         ];
     }
 }

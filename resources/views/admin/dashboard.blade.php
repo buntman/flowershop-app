@@ -7,7 +7,7 @@
           <div class="col-md-6 mb-3">
             <div class="card-custom">
               <div class="d-flex justify-content-between align-items-center">
-                <h5 class="text-light">Pending Orders</h5>
+                <h5 class="text-light">Pending Bouquets</h5>
               </div>
               <!-- SCROLLABLE CONTENT -->
               <div class="scrollable mt-2">
@@ -21,11 +21,6 @@
                     <p class=" m-0 order-details">Order ID: <span class="started">{{$pending_order->order_id}}</span></p>
                     <p class=" m-0 order-details">Customer: <span class="started">{{$pending_order->user_name}}</span></p>
                     <p class=" m-0 order-details">Quantity: <span class="started">{{$pending_order->quantity}}</span></p>
-                    <div class=" d-flex flex justify-content-start align-items-center">
-                      <span>
-                        <p class=" m-0 order-details">Pickup Schedule: <span class="started">{{$pending_order->pickup_date}} {{$pending_order->pickup_time}}</span></p>
-                      </span>
-                    </div>
                   </div>
                 <form action="{{route('item.update', $pending_order->item_id)}}" method="POST">
                 @csrf
@@ -41,7 +36,7 @@
                 <div class="d-flex justify-content-center align-items-center w-100 py-5">
                 <div class="alert alert-info text-center shadow-sm rounded-3 px-4 py-3">
                 <i class="fas fa-box-open fa-lg mb-2 d-block text-secondary"></i>
-                <p class="m-0 fw-semibold text-secondary">No Pending Orders!</p>
+                <p class="m-0 fw-semibold text-secondary">No pending bouquets to make!</p>
                 </div>
                 </div>
                 @endif
@@ -52,7 +47,7 @@
           <div class="col-md-6 mb-3">
             <div class="card-custom">
               <div class="d-flex justify-content-between align-items-center">
-                <h5 class="text-light">Completed Orders</h5>
+                <h5 class="text-light">Completed Bouquets</h5>
               </div>
               <div id="container" class="scrollable mt-2">
                 <!-- SECOND SECTION OF SCROLLABLE CONTENT -->
@@ -64,14 +59,6 @@
                     <p class="mb-0 fw-bold product_name">{{$completed_item->product_name}}</p>
                     <p class=" m-0 order-details">Order ID: <span class="started order_id">{{$completed_item->order_id}}</span></p>
                     <p class=" m-0 order-details">Customer: <span class="started customer_name">{{$completed_item->user_name}}</span></p>
-                    <div class=" d-flex flex justify-content-start align-items-center">
-                      <span>
-                        <p class=" m-0 order-details">Pickup Schedule: <span class="started pickup_schedule">{{$completed_item->pickup_date}} {{$completed_item->pickup_time}}</span></p>
-                      </span>
-                      <span class="ms-3 ps-5">
-                        <p class=" m-0 order-details">Status: <span class="status">{{$completed_item->status}}</span></p>
-                      </span>
-                    </div>
                   </div>
                 </div>
                 @endforeach
@@ -79,7 +66,7 @@
                 <div class="d-flex justify-content-center align-items-center w-100 py-5">
                     <div class="alert alert-success text-center shadow-sm rounded-3 px-4 py-3">
                     <i class="fas fa-clipboard-check fa-lg mb-2 d-block text-success"></i>
-                    <p class="m-0 fw-semibold text-success">No Completed Orders Yet!</p>
+                    <p class="m-0 fw-semibold text-success">No completed bouquets yet!</p>
                     </div>
                 </div>
                 @endif

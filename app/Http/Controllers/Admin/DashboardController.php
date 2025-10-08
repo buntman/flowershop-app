@@ -21,8 +21,6 @@ class DashboardController extends Controller
             'products.image_name',
             'products.name as product_name',
             'order_items.quantity',
-            'orders.pickup_date',
-            'orders.pickup_time'
         )
         ->where('order_items.status', 'pending')->get();
         $completed_items = DB::table('orders')
@@ -36,9 +34,6 @@ class DashboardController extends Controller
             'products.image_name',
             'products.name as product_name',
             'order_items.quantity',
-            'orders.pickup_date',
-            'orders.pickup_time',
-            'orders.status'
         )
         ->where('order_items.status', 'completed')->get();
         return view('admin.dashboard', ['pending_orders' => $pending_orders, 'completed_items' => $completed_items]);

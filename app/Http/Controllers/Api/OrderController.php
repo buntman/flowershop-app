@@ -16,17 +16,15 @@ class OrderController extends Controller
         $order = Order::create([
             'user_id' => $user->id,
             'payment_method' => $input['payment_method'],
-            'pickup_date' => $input['pickup_date'],
-            'pickup_time' => $input['pickup_time'],
             'total' => $input['total'],
         ]);
         foreach ($input['order_items'] as $item) {
             OrderItem::create([
                 'order_id' => $order->id,
-                'product_id' => $item['productId'],
-                'name' => $item['name'],
+                'product_id' => $item['product_id'],
+                'name' => $item['product_name'],
                 'quantity' => $item['quantity'],
-                'sub_total' => $item['subTotal'],
+                'sub_total' => $item['sub_total'],
             ]);
         }
         return response()->json(['message' => 'Order placed successfully!'], 200);
