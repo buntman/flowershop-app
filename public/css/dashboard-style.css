@@ -3,6 +3,10 @@
   display: none;
 }
 
+body {
+    overflow-y:hidden;
+}
+
 .pending {
   /* padding-left: 180px; */
   color: #FA2290;

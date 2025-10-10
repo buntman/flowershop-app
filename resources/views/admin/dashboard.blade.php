@@ -19,8 +19,8 @@
                   <div class="d-flex flex-column w-100 gap-0 ps-3">
                     <p class="mb-0 fw-bold product_name">{{ $pending_order->product_name }}</p>
                     <p class=" m-0 order-details">Order ID: <span class="started">{{$pending_order->order_id}}</span></p>
-                    <p class=" m-0 order-details">Customer: <span class="started">{{$pending_order->user_name}}</span></p>
                     <p class=" m-0 order-details">Quantity: <span class="started">{{$pending_order->quantity}}</span></p>
+                    <p class=" m-0 order-details">Customer: <span class="started">{{$pending_order->user_name}}</span></p>
                   </div>
                 <form action="{{route('item.update', $pending_order->item_id)}}" method="POST">
                 @csrf
@@ -57,8 +57,9 @@
                   <img class="product_image rounded" src="{{route('products.image', $completed_item->image_name)}}" alt="Bouquet" width="120" height="130">
                   <div class="d-flex flex-column w-100 me-5 gap-0 ps-3">
                     <p class="mb-0 fw-bold product_name">{{$completed_item->product_name}}</p>
-                    <p class=" m-0 order-details">Order ID: <span class="started order_id">{{$completed_item->order_id}}</span></p>
-                    <p class=" m-0 order-details">Customer: <span class="started customer_name">{{$completed_item->user_name}}</span></p>
+                    <p class=" m-0 order-details">Order ID: <span class="started">{{$completed_item->order_id}}</span></p>
+                    <p class=" m-0 order-details">Quantity: <span class="started">{{$completed_item->quantity}}</span></p>
+                    <p class=" m-0 order-details">Customer: <span class="started">{{$completed_item->user_name}}</span></p>
                   </div>
                 </div>
                 @endforeach

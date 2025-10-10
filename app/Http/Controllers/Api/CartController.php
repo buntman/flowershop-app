@@ -8,6 +8,7 @@ use App\Models\CartItem;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Enums\CartStatus;
 
 class CartController extends Controller
 {
@@ -21,7 +22,7 @@ class CartController extends Controller
 
         $user_id = auth('api')->id();
 
-        $cart = Cart::where('user_id', $user_id)->where('status', 'active')->first();
+        $cart = Cart::where('user_id', $user_id)->where('status', CartStatus::ACTIVE)->first();
 
         if (!$cart) {
             $new_cart = Cart::create([ // Create a new cart for user
@@ -66,7 +67,7 @@ class CartController extends Controller
         ->join('products', 'cart_items.product_id', '=', 'products.id')
         ->select('cart_items.id', 'products.image_name', 'products.name', 'cart_items.quantity', 'products.price')
         ->where('carts.user_id', $user_id)
-        ->where('carts.status', 'active')
+        ->where('carts.status', CartStatus::ACTIVE)
         ->get();
         foreach ($items as &$item) {
             $item->image_name = 'http://10.0.2.2:8000/images/' . $item->image_name;
@@ -119,23 +120,11 @@ class CartController extends Controller
         return response()->noContent();
     }
 
-    public function updateCartStatus(Request $request, $cart_id)
-    {
-        $input = $request->validate([
-            'status' => 'required',
-        ]);
-        $cart = Cart::find($cart_id);
-        if (!$cart) {
-            return response()->json(['message' => 'Cart does not exist.'], 404);
-        }
-        $cart->update(['status' => $input['status']]);
-        return response()->noContent();
-    }
 
     public function getCartTotal()
     {
         $user_id = auth('api')->id();
-        $cart = Cart::where('user_id', $user_id)->where('status', 'active')->first();
+        $cart = Cart::where('user_id', $user_id)->where('status', CartStatus::ACTIVE)->first();
         if (!$cart) {
             return response()->json(['total' => 0], 200);
         }
@@ -145,18 +134,29 @@ class CartController extends Controller
     public function getItemsForCheckout()
     {
         $user = auth()->user();
-        $cart = Cart::where('user_id', $user->id)->where('status', 'active')->first();
+        $cart = Cart::where('user_id', $user->id)->where('status', CartStatus::ACTIVE)->first();
         $active_items = DB::table('carts')
         ->join('cart_items', 'carts.id', '=', 'cart_items.cart_id')
         ->join('products', 'cart_items.product_id', '=', 'products.id')
         ->select('products.id', 'products.name', 'cart_items.quantity', 'cart_items.sub_total')
         ->where('carts.user_id', $user->id)
-        ->where('carts.status', 'active')->get();
+        ->where('carts.status', CartStatus::ACTIVE)->get();
         return response()->json(['cart_id' => $cart->id, 'items' => $active_items], 200);
     }
 
-    public function totalPriceCounter(Cart $cart) {
+    public function totalPriceCounter(Cart $cart)
+    {
         $items = CartItem::where('cart_id', $cart->id)->get();
         $cart->update(['total' => $items->sum('sub_total')]);
+    }
+
+    public function updateCartStatus($cart_id)
+    {
+        $cart = Cart::find($cart_id);
+        if (!$cart) {
+            return response()->json(['message' => 'Cart does not exist.'], 404);
+        }
+        $cart->update(['status' => CartStatus::CHECKED_OUT]);
+        return response()->noContent();
     }
 }
