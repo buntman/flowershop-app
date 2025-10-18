@@ -25,6 +25,7 @@ class AuthController extends Controller
         if (!$user || !Hash::check($input['password'], $user->password)) {
             return response()->json(['message' => 'Invalid input. Please try again.'], 422);
         }
-        return response()->json(['token' => $user->createToken('some-device-name')->plainTextToken], 200);
+        return response()->json(['token' => $user->createToken('some-device-name')->plainTextToken,
+            'message' => 'Successful login'], 200);
     }
 }

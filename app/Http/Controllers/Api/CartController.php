@@ -70,7 +70,7 @@ class CartController extends Controller
         ->where('carts.status', CartStatus::ACTIVE)
         ->get();
         foreach ($items as &$item) {
-            $item->image_name = 'http://10.0.2.2:8000/images/' . $item->image_name;
+            $item->image_name = url('images/' . $item->image_name);
         }
         unset($item);
         return response()->json($items, 200);

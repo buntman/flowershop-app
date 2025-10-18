@@ -11,7 +11,7 @@ class GalleryController extends Controller
     {
         $bouquets = Product::select('id', 'name', 'price', 'image_name')->get();
         foreach ($bouquets as &$bouquet) {
-            $bouquet['image_name'] = 'http://10.0.2.2:8000/images/' . $bouquet['image_name'];
+            $bouquet['image_name'] = url('images/' . $bouquet['image_name']);
         }
         unset($bouquet);
         return response()->json($bouquets, 200);

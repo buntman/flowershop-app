@@ -20,7 +20,7 @@ class ProfileController extends Controller
         //checks if user details are updated
         if ($user->name == null || $user->contact_number == null) {
             return response()->json(['success' => false,
-                'message' => 'Please update your details first before proceeding.'], 200);
+                'message' => 'Please update your details first before proceeding.'], 422);
         }
         return response()->json(['success' => true], 200);
     }
