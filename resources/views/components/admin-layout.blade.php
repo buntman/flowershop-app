@@ -19,7 +19,9 @@
 <!-- Tailwind CSS (Development CDN) -->
     </head>
     <body>
-    @include('components.admin-profile')
+  <nav class="sb-topnav navbar navbar-expand ">
+    <button class="btn btn-link btn-sm me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+  </nav>
     <div id="layoutSidenav">
         @include('components.admin-sidebar')
         <div id="layoutSidenav_content">

@@ -1,7 +1,6 @@
 @extends('components.admin-layout')
 <link href="{{asset('/css/inventory-style.css')}}" rel="stylesheet">
 @section('title', 'Inventory')
-
 @section('content')
         <div class="d-flex justify-content-end">
         <button id="add_button" type="button" rel="tooltip" class="btn btn-success btn-just-icon btn-sm" data-bs-toggle="modal" data-bs-target="#add_form">Add Product

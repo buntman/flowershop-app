@@ -75,5 +75,3 @@
         </div>
       </main>
 <script src="/js/dashboard.js"></script>
-@section('content')
-@endsection

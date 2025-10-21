@@ -9,7 +9,7 @@
               <li class="my-2">
                 <a href="/inventory" class="nav-link border_bottom" title="Dashboard" data-bs-toggle="tooltip"
                   data-bs-placement="right">
-                  <div class="border_box">
+                  <div class="">
                   <i class="bi bi-database nav-icons"></i>
                   <p>Inventory</p>
                   </div>
