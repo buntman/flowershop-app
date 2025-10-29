@@ -22,3 +22,4 @@ Route::get('/profile', [ProfileController::class, 'getUser'])->middleware('auth:
 Route::patch('/profile', [ProfileController:: class , 'updateProfile'])->middleware('auth:sanctum');
 Route::get('/cart/items/checkout', [CartController::class, 'getItemsForCheckout'])->middleware('auth:sanctum');
 Route::post('/order', [OrderController::class, 'createOrder'])->middleware('auth:sanctum');
+Route::get('/order/{status}', [OrderController::class, 'getOrderDetails'])->middleware('auth:sanctum');
