@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Http\Requests\Api\OrderRequest;
 use Illuminate\Support\Facades\DB;
+use App\Enums\OrderStatus;
 
 class OrderController extends Controller
 {
@@ -47,5 +48,11 @@ class OrderController extends Controller
             ->select('products.name', 'order_items.quantity', 'products.price')
             ->where('order_items.order_id', $order_id)->get();
         return $order_items;
+    }
+
+    public function markOrderAsComplete($order_id) {
+        $order = Order::where('id', $order_id)->where('status', OrderStatus::READY_FOR_PICKUP)->firstOrFail();
+        $order->update(['status' => OrderStatus::COMPLETED]);
+        return response()->noContent();
     }
 }

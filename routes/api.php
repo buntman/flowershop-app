@@ -23,3 +23,4 @@ Route::patch('/profile', [ProfileController:: class , 'updateProfile'])->middlew
 Route::get('/cart/items/checkout', [CartController::class, 'getItemsForCheckout'])->middleware('auth:sanctum');
 Route::post('/order', [OrderController::class, 'createOrder'])->middleware('auth:sanctum');
 Route::get('/order/{status}', [OrderController::class, 'getOrderDetails'])->middleware('auth:sanctum');
+Route::patch('/order/{id}', [OrderController::class, 'markOrderAsComplete'])->middleware('auth:sanctum');
