@@ -138,9 +138,13 @@ class CartController extends Controller
         $active_items = DB::table('carts')
         ->join('cart_items', 'carts.id', '=', 'cart_items.cart_id')
         ->join('products', 'cart_items.product_id', '=', 'products.id')
-        ->select('products.id', 'products.name', 'cart_items.quantity', 'cart_items.sub_total')
+        ->select('products.id', 'products.name', 'cart_items.quantity', 'cart_items.sub_total', 'products.image_name')
         ->where('carts.user_id', $user->id)
         ->where('carts.status', CartStatus::ACTIVE)->get();
+        foreach ($active_items as &$active_item) {
+            $active_item->image_name = url('images/' . $active_item->image_name);
+        }
+        unset($active_item);
         return response()->json(['cart_id' => $cart->id, 'items' => $active_items], 200);
     }
 
