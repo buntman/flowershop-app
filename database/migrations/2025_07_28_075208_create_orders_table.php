@@ -17,7 +17,7 @@ return new class extends Migration
             $table->enum('payment_method', ['online'])->default('online'); //add other payment option in the future
             $table->enum('payment_status', ['pending', 'paid'])->default('pending');
             $table->decimal('total', total:10, places:2);
-            $table->enum('status', ['pending', 'ready for pickup', 'completed'])->default('pending');
+            $table->enum('status', ['pending', 'ready_for_pickup', 'completed'])->default('pending');
             $table->timestamps();
         });
     }
