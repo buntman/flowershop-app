@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\LoginRequest;
 use App\Http\Requests\Api\RegisterRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use App\Models\User;
 
 class AuthController extends Controller
@@ -27,5 +28,10 @@ class AuthController extends Controller
         }
         return response()->json(['token' => $user->createToken('some-device-name')->plainTextToken,
             'message' => 'Successful login'], 200);
+    }
+
+    public function logout(Request $request) {
+        $request->user()->currentAccessToken()->delete();
+        return response()->noContent();
     }
 }

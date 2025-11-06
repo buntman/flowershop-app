@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::delete('/logout', [AuthController::class ,'logout'])->middleware('auth:sanctum');
 Route::get('/home', [HomeController::class, 'getNewBouquets'])->middleware('auth:sanctum');
 Route::get('/gallery', [GalleryController::class, 'getBouquets'])->middleware('auth:sanctum');
 Route::post('/cart/items', [CartController::class, 'add'])->middleware('auth:sanctum');
