@@ -23,5 +23,6 @@ Route::patch('/inventory/products', [InventoryController::class, 'update'])
     ->middleware('auth:admin')->name('products.edit');
 Route::get('/dashboard', [DashboardController::class, 'getDashboard'])
     ->middleware('auth:admin');
-Route::patch('/dashboard/pending/{id}', [DashboardController::class, 'markOrderItemAsCompleted'])
-    ->middleware('auth:admin')->name('item.update');
+Route::get('/dashboard/orders/{id}', [DashboardController::class, 'getOrderDetails'])
+    ->middleware('auth:admin');
+

@@ -20,6 +20,8 @@ class OrderController extends Controller
             'payment_method' => $input['payment_method'],
             'total' => $input['total'],
         ]);
+        $order->order_number = 200000 + $order->id;
+        $order->save();
         foreach ($input['order_items'] as $item) {
             OrderItem::create([
                 'order_id' => $order->id,
