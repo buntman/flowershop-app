@@ -1,4 +1,7 @@
 @extends('components.admin-layout')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <link href="{{asset('/css/inventory-style.css')}}" rel="stylesheet">
 @section('title', 'Inventory')
 @section('content')
@@ -10,23 +13,25 @@
             @include('shared.session-success-message')
             @include('shared.session-error-message')
             @include('shared.validation-error-message')
-            <table class="table table-hover m-5">
+            <table id="inventory_table"class="table table-hover m-5">
+        <thead>
+          <tr>
+                <th></th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Actions</th>
+          </tr>
+        </thead>
                 <tbody>
-                <tr>
-                    <th></th>
-                    <th  class="text-center">Product Name</th>
-                    <th  class="text-center">Quantity</th>
-                    <th  class="text-center">Price</th>
-                    <th  class="text-center">Actions</th>
-                </tr>
                 @foreach ($products as $product)
                 <tr>
                 <td>
-                    <img src="{{ route('products.image',$product->image_name) }}" width="90" height="90" class="rounded">
+                    <img src="{{ route('products.image',$product->image_name) }}" width="70" height="70" class="rounded">
                 </td>
-                <td class="text-center align-middle">{{ $product->name }}</td>
-                <td class="text-center align-middle">{{ $product->quantity }}</td>
-                <td class="text-center align-middle">{{ $product->price }}</td>
+                <td class="align-middle">{{ $product->name }}</td>
+                <td class="align-middle">{{ $product->quantity }}</td>
+                <td class="align-middle">{{ $product->price }}</td>
                 <td class="align-middle">
                     <div class="d-flex justify-content-center">
                     <div>
@@ -119,5 +124,16 @@
             </div>
             {{-- End of edit product modal form --}}
     </div>
+<script>
+$(document).ready(function() {
+    $('#inventory_table').DataTable({
+        paging: true,
+        searching: true,
+        ordering: true,
+        info: true,
+        pageLength: 10
+    });
+});
+</script>
     <script src="{{ asset('/js/inventory.js') }}"></script>
 @endsection
