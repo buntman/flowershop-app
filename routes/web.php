@@ -25,4 +25,6 @@ Route::get('/dashboard', [DashboardController::class, 'getDashboard'])
     ->middleware('auth:admin');
 Route::get('/dashboard/orders/{id}', [DashboardController::class, 'getOrderDetails'])
     ->middleware('auth:admin');
+Route::patch('/dashboard/{id}/status', [DashboardController::class, 'updateOrderStatus'])
+    ->middleware('auth:admin')->name('orders.updateStatus');
 

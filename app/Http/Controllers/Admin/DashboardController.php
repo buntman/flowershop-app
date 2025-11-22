@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use App\Models\OrderItem;
 use App\Models\Order;
-use App\Enums\OrderItemStatus;
-use App\Enums\OrderStatus;
+use Illuminate\Http\Request;
 
 
 class DashboardController extends Controller
@@ -40,21 +38,13 @@ class DashboardController extends Controller
         return response()->json($order_details);
     }
 
-    public function markOrderItemAsCompleted($item_id)
-    {
-        $item = OrderItem::find($item_id);
-        if (!$item) {
-            return redirect('/dashboard')->with('error', 'Item does not exists.');
-        }
-        $item->update(['status' => OrderItemStatus::COMPLETED]);
-        $this->updateOrderAsReadyForPickup($item->order_id);
-        return redirect('/dashboard')->with('success', 'Successfully mark as completed.');
-    }
-
-    public function updateOrderAsReadyForPickup($order_id) {
-        $order_items = OrderItem::where('order_id', $order_id)->where('status', OrderItemStatus::PENDING)->first();
-        if (!$order_items) {
-            Order::where('id', $order_id)->update(['status' => OrderStatus::READY_FOR_PICKUP]);
-        }
+    public function updateOrderStatus(Request $request, $order_id) {
+        $order = Order::findOrFail($order_id);
+        $request->validate([
+            'status' => 'required|in:pending,ready_for_pickup,completed'
+        ]);
+        $order->status = $request->status;
+        $order->save();
+        return back()->with('success', 'Status updated!');
     }
 }

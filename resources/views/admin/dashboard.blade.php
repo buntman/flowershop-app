@@ -4,23 +4,60 @@
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <link href="{{asset('css/dashboard-style.css')}}" rel="stylesheet">
 @section('title', 'Dashboard')
-    <div class="container my-5">
+    <div class="container mt-5 pt-5">
+    @include('shared.session-success-message')
     <table id="orders_table" class="table table-hover">
         <thead>
           <tr>
-                <th ">Customer</th>
-                <th ">Order #</th>
-                <th ">Total</th>
-                <th ">Status</th>
+                <th>Customer</th>
+                <th>Order #</th>
+                <th>Total</th>
+                <th>Status</th>
           </tr>
         </thead>
         <tbody>
             @foreach($orders as $order)
-            <tr data-bs-toggle="modal" data-bs-target="#order_details_modal" onclick="displayOrderDetails({{ $order->order_id }})">
-                <td  class="py-3">{{$order->customer_name}}</td>
-                <td  class="py-3">{{$order->order_number}}</td>
-                <td  class="py-3">₱{{$order->total}}</td>
-                <td  class="py-3">{{$order->status}}</td>
+            <tr>
+                <td  class="py-3 align-middle">
+                    <a
+                        class="text-decoration-underline"
+                        data-bs-toggle="modal"
+                        data-bs-target="#order_details_modal"
+                        onclick="displayOrderDetails({{$order->order_id}})">
+                        {{$order->customer_name}}
+                    </a>
+                </td>
+                <td  class="py-3 align-middle">{{$order->order_number}}</td>
+                <td  class="py-3 align-middle">₱{{$order->total}}</td>
+                <td  class="py-3">
+            @php
+                $statusClasses = [
+                'pending' => 'bg-warning text-dark',
+                'ready_for_pickup' => 'bg-info text-dark',
+                'completed' => 'bg-success text-white',
+            ];
+                $currentClass = $statusClasses[$order->status] ?? 'bg-secondary text-white';
+            @endphp
+            <form action="{{ route('orders.updateStatus', $order->order_id) }}" method="POST" class="m-0">
+                @csrf
+                @method('PATCH')
+                <select id="status"
+                    name="status"
+                    onchange="this.form.submit()"
+                    class="form-select form-select-sm border-0 fw-bold text-center {{ $currentClass }}"
+                    >
+                <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }} class="bg-white text-dark">
+                    Pending
+                </option>
+                <option value="ready_for_pickup" {{ $order->status == 'ready_for_pickup' ? 'selected' : '' }} class="bg-white text-dark">
+                    Ready for Pickup
+                </option>
+                <option value="completed" {{ $order->status == 'completed' ? 'selected' : '' }} class="bg-white text-dark">
+                    Completed
+                </option>
+                </select>
+            </form>
+                </td>
             </tr>
             @endforeach
          </tbody>

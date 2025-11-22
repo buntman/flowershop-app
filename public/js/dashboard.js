@@ -19,7 +19,7 @@ function displayOrderDetails(id) {
                 ${item.quantity}
             </div>
             <div class="col-3 text-end">
-                 ${item.price}
+                 ₱${item.price}
             </div>
             </div>
             `;

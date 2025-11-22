@@ -8,13 +8,18 @@ body {
     overflow-y:hidden;
 }
 
-tr {
-    cursor: pointer;
-}
-
 .modal-scroll {
     max-height:250px;
     height: 250px;
     overflow-y:auto;
 }
 
+a {
+    cursor: pointer;
+}
+
+#status {
+    height: 40px;
+    width: 180px;
+    cursor:pointer;
+}

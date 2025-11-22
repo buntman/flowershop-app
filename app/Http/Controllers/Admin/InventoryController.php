@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AddProductRequest;
 use App\Http\Requests\Admin\EditProductRequest;
 use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Product;
 
@@ -18,7 +17,7 @@ class InventoryController extends Controller
         return view('admin.inventory', ['products' => $products]);
     }
 
-    public function add(AddProductRequest $request): RedirectResponse
+    public function add(AddProductRequest $request)
     {
         $input = $request->validated();
         $file = $input['image']->store('images');
@@ -31,7 +30,7 @@ class InventoryController extends Controller
             'image_name' => $file_name,
         ]);
 
-        return redirect('/inventory')->with('success', 'Product added successfully.');
+        return back()->with('success', 'Product added successfully.');
     }
 
     public function get($product_id)
@@ -40,7 +39,7 @@ class InventoryController extends Controller
         return response()->json($product);
     }
 
-    public function update(EditProductRequest $request): RedirectResponse
+    public function update(EditProductRequest $request)
     {
         $input = $request->validated();
 
@@ -49,7 +48,7 @@ class InventoryController extends Controller
             $product->name == $input['name'] &&
             $product->quantity == $input['quantity'] &&
             bccomp($product->price, $input['price'], 2) === 0) {
-            return redirect('/inventory')->with('error', 'No changes detected. Please make a change before submitting.');
+            return back()->with('error', 'No changes detected. Please make a change before submitting.');
         }
 
         Product::where('id', $input['productId'])->update([
@@ -58,13 +57,13 @@ class InventoryController extends Controller
             'price' => $input['price']
         ]);
 
-        return redirect('/inventory')->with('success', 'Product edited successfully.');
+        return back()->with('success', 'Product edited successfully.');
     }
 
-    public function destroy(Product $product): RedirectResponse
+    public function destroy(Product $product)
     {
         Storage::delete('images/' . $product->image_name); //remove the file in storage
         $product->delete();
-        return redirect('/inventory')->with('success', 'Product deleted successfully.');
+        return back()->with('success', 'Product deleted successfully.');
     }
 }
