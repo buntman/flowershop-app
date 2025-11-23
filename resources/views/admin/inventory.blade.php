@@ -1,10 +1,12 @@
 @extends('components.admin-layout')
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<link href="{{asset('/css/inventory-style.css')}}" rel="stylesheet">
 @section('title', 'Inventory')
 @section('content')
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.1/css/buttons.dataTables.min.css">
+<!-- DataTables Buttons JS -->
+<script src="https://cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.print.min.js"></script>
+<link href="{{asset('/css/inventory-style.css')}}" rel="stylesheet">
             <div class="container">
             @include('shared.session-success-message')
             @include('shared.session-error-message')
@@ -27,7 +29,7 @@
                 </td>
                 <td class="align-middle">{{ $product->name }}</td>
                 <td class="align-middle">{{ $product->quantity }}</td>
-                <td class="align-middle">{{ $product->price }}</td>
+                <td class="align-middle">₱{{ $product->price }}</td>
                 <td class="align-middle">
                     <div class="d-flex justify-content-center align-items-center">
                     <div>
@@ -121,15 +123,13 @@
             {{-- End of edit product modal form --}}
     </div>
 <script>
-$(document).ready(function() {
-    $('#inventory_table').DataTable({
-        paging: true,
-        searching: true,
-        ordering: true,
-        info: true,
-        pageLength: 10,
-    });
-});
+        $(document).ready(function() {
+            let table = new DataTable('#inventory_table', {
+                info: false,
+                ordering: true,
+                paging: true
+            });
+        });
 </script>
 <script src="{{ asset('/js/inventory.js') }}"></script>
 @endsection

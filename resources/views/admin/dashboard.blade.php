@@ -1,10 +1,7 @@
 @extends('components.admin-layout')
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<link href="{{asset('css/dashboard-style.css')}}" rel="stylesheet">
 @section('title', 'Dashboard')
 @section('content')
+    <link href="{{asset('css/dashboard-style.css')}}" rel="stylesheet">
     <div class="container">
     @include('shared.session-success-message')
     <table id="orders_table" class="table table-hover">
@@ -83,15 +80,13 @@
         </div>
     </div>
 <script>
-$(document).ready(function() {
-    $('#orders_table').DataTable({
-        paging: true,
-        searching: true,
-        ordering: true,
-        info: true,
-        pageLength: 10
-    });
-});
+        $(document).ready(function() {
+            let table = new DataTable('#orders_table', {
+                info: false,
+                ordering: true,
+                paging: true
+            });
+        });
 </script>
 <script src="/js/dashboard.js"></script>
 @endsection
