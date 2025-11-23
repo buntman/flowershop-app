@@ -5,24 +5,20 @@
 <link href="{{asset('/css/inventory-style.css')}}" rel="stylesheet">
 @section('title', 'Inventory')
 @section('content')
-        <div class="d-flex justify-content-end">
-        <button id="add_button" type="button" rel="tooltip" class="btn btn-success btn-just-icon btn-sm" data-bs-toggle="modal" data-bs-target="#add_form">Add Product
-        </button>
-        </div>
             <div class="container">
             @include('shared.session-success-message')
             @include('shared.session-error-message')
             @include('shared.validation-error-message')
-            <table id="inventory_table"class="table table-hover m-5">
-        <thead>
-          <tr>
+            <table id="inventory_table"class="table table-hover">
+            <thead>
+            <tr>
                 <th></th>
                 <th>Product Name</th>
                 <th>Quantity</th>
                 <th>Price</th>
                 <th>Actions</th>
-          </tr>
-        </thead>
+            </tr>
+            </thead>
                 <tbody>
                 @foreach ($products as $product)
                 <tr>
@@ -33,13 +29,13 @@
                 <td class="align-middle">{{ $product->quantity }}</td>
                 <td class="align-middle">{{ $product->price }}</td>
                 <td class="align-middle">
-                    <div class="d-flex justify-content-center">
+                    <div class="d-flex justify-content-center align-items-center">
                     <div>
                     <button id="edit_button" type="button" rel="tooltip" class="btn btn-primary custom" data-bs-toggle="modal" data-bs-target="#edit_form" onclick="displayProductDetails({{ $product->id }})">
                                         Edit
                     </button>
                     </div>
-                    <form action = "{{route('products.destroy', $product)}}" method="POST" onsubmit="return confirm('Remove product?')">
+                    <form class="m-0" action = "{{route('products.destroy', $product)}}" method="POST" onsubmit="return confirm('Remove product?')">
                         @csrf
                         @method('DELETE')
                     <button id="delete-button" type="submit" class="btn btn-danger custom ms-4">
@@ -131,9 +127,9 @@ $(document).ready(function() {
         searching: true,
         ordering: true,
         info: true,
-        pageLength: 10
+        pageLength: 10,
     });
 });
 </script>
-    <script src="{{ asset('/js/inventory.js') }}"></script>
+<script src="{{ asset('/js/inventory.js') }}"></script>
 @endsection

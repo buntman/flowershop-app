@@ -4,7 +4,8 @@
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <link href="{{asset('css/dashboard-style.css')}}" rel="stylesheet">
 @section('title', 'Dashboard')
-    <div class="container mt-5 pt-5">
+@section('content')
+    <div class="container">
     @include('shared.session-success-message')
     <table id="orders_table" class="table table-hover">
         <thead>
@@ -93,3 +94,4 @@ $(document).ready(function() {
 });
 </script>
 <script src="/js/dashboard.js"></script>
+@endsection
