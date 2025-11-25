@@ -2,7 +2,6 @@
 @section('title', 'Inventory')
 @section('content')
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.1/css/buttons.dataTables.min.css">
-<!-- DataTables Buttons JS -->
 <script src="https://cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.print.min.js"></script>
@@ -122,14 +121,5 @@
             </div>
             {{-- End of edit product modal form --}}
     </div>
-<script>
-        $(document).ready(function() {
-            let table = new DataTable('#inventory_table', {
-                info: false,
-                ordering: true,
-                paging: true
-            });
-        });
-</script>
 <script src="{{ asset('/js/inventory.js') }}"></script>
 @endsection

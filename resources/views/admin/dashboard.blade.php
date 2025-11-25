@@ -8,6 +8,7 @@
         <thead>
           <tr>
                 <th>Customer</th>
+                <th>Contact</th>
                 <th>Order #</th>
                 <th>Total</th>
                 <th>Status</th>
@@ -25,6 +26,7 @@
                         {{$order->customer_name}}
                     </a>
                 </td>
+                <td  class="py-3 align-middle">{{$order->contact_number}}</td>
                 <td  class="py-3 align-middle">{{$order->order_number}}</td>
                 <td  class="py-3 align-middle">₱{{$order->total}}</td>
                 <td  class="py-3">
@@ -79,14 +81,5 @@
         </div>
         </div>
     </div>
-<script>
-        $(document).ready(function() {
-            let table = new DataTable('#orders_table', {
-                info: false,
-                ordering: true,
-                paging: true
-            });
-        });
-</script>
-<script src="/js/dashboard.js"></script>
+<script src="{{ asset('/js/dashboard.js') }}"></script>
 @endsection

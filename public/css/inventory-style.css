@@ -6,17 +6,15 @@ body{
     font-family: Poppins;
 }
 
-#add_button {
-    padding: 15px;
-    margin-right: 45px;
-    background-color: pink!important;
-    color: black!important;
-    border:none !important;
-    font-weight: 500;
-    font-size: 16px;
-}
-
 .custom {
     width: 78px !important;
 }
 
+button.dt-button.btn-success {
+    font-size: 16px;
+    background-color: pink!important;
+    border:none !important;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 16px;
+}

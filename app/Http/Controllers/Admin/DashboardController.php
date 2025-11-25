@@ -16,6 +16,7 @@ class DashboardController extends Controller
         ->join('users', 'orders.user_id', '=', 'users.id')
         ->select(
             'users.name as customer_name',
+            'users.contact_number',
             'orders.id as order_id',
             'orders.order_number',
             'orders.total',

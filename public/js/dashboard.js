@@ -27,3 +27,18 @@ function displayOrderDetails(id) {
         })
     .catch(error=> console.error('Error', error));
 }
+
+
+$(document).ready(function() {
+    let table = new DataTable('#orders_table', {
+        info: false,
+        ordering: true,
+        paging: true,
+        columnDefs: [
+                    {
+                        targets: '_all',
+                        className: 'text-start'
+                    }
+                ]
+    });
+});
