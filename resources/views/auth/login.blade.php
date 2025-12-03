@@ -15,6 +15,7 @@
     <body>
         <div class="d-flex justify-content-center align-items-center mt-5">
         <div class="card mt-5">
+        @include('shared.session-error-message')
         @include('shared.validation-error-message')
         <form method="POST" action="/login">
         @csrf

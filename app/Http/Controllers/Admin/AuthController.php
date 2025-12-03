@@ -8,6 +8,7 @@ use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
 
 class AuthController extends Controller
 {
@@ -16,8 +17,14 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function login(AuthRequest $request): RedirectResponse
+    public function login(AuthRequest $request)
     {
+        if (RateLimiter::tooManyAttempts('login:' . $request->ip(), $per_minute = 5)) {
+            $seconds = RateLimiter::availableIn('login:' . $request->ip());
+            return back()->with('error', 'Too many login attempts. Try again in ' . $seconds . ' seconds.');
+        }
+        RateLimiter::increment('login:' . $request->ip());
+
         if (Auth::guard('admin')->attempt($request->validated())) {
             $request->session()->regenerate();
             return redirect()->intended('inventory');
