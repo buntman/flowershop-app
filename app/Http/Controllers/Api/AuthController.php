@@ -8,6 +8,7 @@ use App\Http\Requests\Api\RegisterRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\RateLimiter;
 
 class AuthController extends Controller
 {
@@ -21,6 +22,12 @@ class AuthController extends Controller
     }
 
     public function login(LoginRequest $request) {
+        if (RateLimiter::tooManyAttempts('login:' . $request->ip(), $per_minute = 5)) {
+            $seconds = RateLimiter::availableIn('login:' . $request->ip());
+            return response()->json(['message' => 'Too many login attempts. Try again in ' . $seconds . ' seconds.'], 429);
+        }
+        RateLimiter::increment('login:' . $request->ip());
+
         $input = $request->validated();
         $user = User::where('email', $input['email'])->first();
         if (!$user || !Hash::check($input['password'], $user->password)) {
