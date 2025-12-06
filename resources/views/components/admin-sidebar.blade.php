@@ -25,16 +25,6 @@
                   </div>
                 </a>
               </li>
-              <!-- REPORTS -->
-              <li class="my-2">
-                <a href="/reports" class="nav-link py-3 border_bottom" title="Orders" data-bs-toggle="tooltip"
-                  data-bs-placement="right">
-                  <div class="">
-                    <i class="bi bi-clipboard-data"></i>
-                    <p>Reports</p>
-                  </div>
-                </a>
-              </li>
             </ul>
           </div>
         </div>
