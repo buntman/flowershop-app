@@ -43,4 +43,12 @@ docker compose exec web php artisan migrate
 ```bash
 docker compose exec web php artisan db:seed --class=AdminSeeder
 ```
-Access the app on http://127.0.0.1:8000
+
+## Usage
+- Access the app on http://127.0.0.1:8000
+- Login using the default admin account from the .env file
+
+## License
+This project is licensed under the [MIT](https://choosealicense.com/licenses/mit/) License
+
+
